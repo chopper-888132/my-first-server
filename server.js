@@ -4,6 +4,7 @@ const path = require('path');
 
 const port = process.env.PORT || 3000;
 const assetDir = path.join(__dirname, 'assets');
+const rootDir = __dirname;
 
 const contentTypes = {
   '.jpg': 'image/jpeg',
@@ -299,17 +300,17 @@ const html = `<!DOCTYPE html>
 
     <section class="gallery" aria-label="รูปมีมลิเวอร์พูล">
       <figure class="poster">
-        <img src="/assets/meme-1.jpg" alt="ลิเวอร์พูลชนะ 7-0" onerror="this.hidden = true">
+        <img src="/meme-1.jpg" alt="ลิเวอร์พูลชนะ 7-0" onerror="this.hidden = true">
         <div class="art">7-0</div>
         <figcaption>คืนที่แอนฟิลด์เสียงดังสุด ๆ</figcaption>
       </figure>
       <figure class="poster king">
-        <img src="/assets/meme-2.jpg" alt="มีมราชาลิเวอร์พูล" onerror="this.hidden = true">
+        <img src="/meme-2.jpg" alt="มีมราชาลิเวอร์พูล" onerror="this.hidden = true">
         <div class="art">KING</div>
         <figcaption>ราชาแดงยืนหนึ่ง โย่ว!</figcaption>
       </figure>
       <figure class="poster trophy">
-        <img src="/assets/meme-3.jpg" alt="ตำนานลิเวอร์พูล" onerror="this.hidden = true">
+        <img src="/meme-3.jpg" alt="ตำนานลิเวอร์พูล" onerror="this.hidden = true">
         <div class="art">LFC</div>
         <figcaption>สีแดงนี้มีตำนานและสกอร์จำไม่ลืม</figcaption>
       </figure>
@@ -323,12 +324,13 @@ const html = `<!DOCTYPE html>
 const server = http.createServer((req, res) => {
   const requestUrl = new URL(req.url, `http://${req.headers.host}`);
 
-  if (requestUrl.pathname.startsWith('/assets/')) {
+  if (requestUrl.pathname.startsWith('/assets/') || requestUrl.pathname.startsWith('/meme-')) {
     const fileName = path.basename(requestUrl.pathname);
-    const filePath = path.join(assetDir, fileName);
+    const baseDir = requestUrl.pathname.startsWith('/assets/') ? assetDir : rootDir;
+    const filePath = path.join(baseDir, fileName);
     const ext = path.extname(fileName).toLowerCase();
 
-    if (!contentTypes[ext] || !filePath.startsWith(assetDir)) {
+    if (!contentTypes[ext] || !filePath.startsWith(baseDir)) {
       res.writeHead(404);
       res.end('Not found');
       return;
