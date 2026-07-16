@@ -10,13 +10,14 @@ const html = `<!DOCTYPE html>
   <title>My First Server</title>
   <style>
     :root {
-      --bg: #0f172a;
-      --panel: rgba(255, 255, 255, 0.92);
-      --ink: #111827;
-      --muted: #5b6475;
-      --accent: #14b8a6;
-      --accent-dark: #0f766e;
-      --line: rgba(15, 23, 42, 0.12);
+      --bg: #09090b;
+      --panel: rgba(24, 24, 27, 0.9);
+      --ink: #f8fafc;
+      --muted: #cbd5e1;
+      --accent: #facc15;
+      --accent-dark: #d97706;
+      --hot: #ef4444;
+      --line: rgba(250, 204, 21, 0.26);
     }
 
     * {
@@ -29,9 +30,9 @@ const html = `<!DOCTYPE html>
       font-family: Tahoma, Arial, sans-serif;
       color: var(--ink);
       background:
-        radial-gradient(circle at 12% 18%, rgba(20, 184, 166, 0.35), transparent 28%),
-        radial-gradient(circle at 90% 8%, rgba(251, 191, 36, 0.24), transparent 24%),
-        linear-gradient(135deg, #111827 0%, #0f172a 48%, #022c22 100%);
+        radial-gradient(circle at 10% 14%, rgba(239, 68, 68, 0.34), transparent 28%),
+        radial-gradient(circle at 88% 10%, rgba(250, 204, 21, 0.26), transparent 25%),
+        linear-gradient(135deg, #030712 0%, #18181b 48%, #451a03 100%);
       display: grid;
       place-items: center;
       padding: 32px 18px;
@@ -48,8 +49,8 @@ const html = `<!DOCTYPE html>
     .hero,
     .info {
       background: var(--panel);
-      border: 1px solid rgba(255, 255, 255, 0.58);
-      box-shadow: 0 28px 70px rgba(0, 0, 0, 0.28);
+      border: 1px solid rgba(250, 204, 21, 0.24);
+      box-shadow: 0 28px 70px rgba(0, 0, 0, 0.5);
       backdrop-filter: blur(14px);
     }
 
@@ -65,8 +66,8 @@ const html = `<!DOCTYPE html>
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(120deg, rgba(20, 184, 166, 0.12), transparent 42%),
-        repeating-linear-gradient(135deg, transparent 0 18px, rgba(15, 23, 42, 0.04) 18px 19px);
+        linear-gradient(120deg, rgba(250, 204, 21, 0.16), transparent 42%),
+        repeating-linear-gradient(135deg, transparent 0 18px, rgba(250, 204, 21, 0.07) 18px 19px);
       pointer-events: none;
     }
 
@@ -80,19 +81,19 @@ const html = `<!DOCTYPE html>
       gap: 8px;
       padding: 7px 12px;
       border-radius: 999px;
-      background: rgba(20, 184, 166, 0.12);
-      color: var(--accent-dark);
+      background: rgba(250, 204, 21, 0.14);
+      color: var(--accent);
       font-size: 14px;
       font-weight: 700;
-      border: 1px solid rgba(20, 184, 166, 0.26);
+      border: 1px solid rgba(250, 204, 21, 0.34);
     }
 
     .dot {
       width: 9px;
       height: 9px;
       border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 0 6px rgba(20, 184, 166, 0.15);
+      background: var(--hot);
+      box-shadow: 0 0 0 6px rgba(239, 68, 68, 0.18);
     }
 
     h1 {
@@ -100,6 +101,8 @@ const html = `<!DOCTYPE html>
       font-size: clamp(34px, 6vw, 64px);
       line-height: 1.08;
       letter-spacing: 0;
+      color: var(--ink);
+      text-shadow: 0 3px 0 rgba(250, 204, 21, 0.22);
     }
 
     .lead {
@@ -128,12 +131,12 @@ const html = `<!DOCTYPE html>
       text-decoration: none;
       font-weight: 700;
       color: white;
-      background: var(--accent-dark);
+      background: linear-gradient(135deg, var(--hot), var(--accent-dark));
     }
 
     .button.secondary {
-      color: var(--ink);
-      background: white;
+      color: var(--accent);
+      background: rgba(255, 255, 255, 0.08);
       border-color: var(--line);
     }
 
@@ -149,7 +152,7 @@ const html = `<!DOCTYPE html>
       padding: 18px;
       border: 1px solid var(--line);
       border-radius: 8px;
-      background: rgba(255, 255, 255, 0.72);
+      background: rgba(255, 255, 255, 0.07);
     }
 
     .label {
@@ -164,6 +167,7 @@ const html = `<!DOCTYPE html>
       margin: 0;
       font-size: 22px;
       font-weight: 800;
+      color: var(--ink);
     }
 
     footer {
@@ -188,34 +192,34 @@ const html = `<!DOCTYPE html>
 <body>
   <main>
     <section class="hero">
-      <div class="badge"><span class="dot"></span> Server พร้อมใช้งาน</div>
-      <h1>สวัสดีครับ<br>นี่คือ Web Server ของผม</h1>
+      <div class="badge"><span class="dot"></span> โยว่ Server พร้อมขึ้นเวที</div>
+      <h1>โยว่! Rapper Server<br>ของนายพงษ์ชัยพัฒน์</h1>
       <p class="lead">
-        หน้าเว็บนี้ถูกปรับใหม่ให้ดูทันสมัยขึ้น มีเลย์เอาต์แบบ responsive สีสบายตา
-        และยังรันด้วย Node.js แบบเรียบง่ายเหมือนเดิม
+        นายพงษ์ชัยพัฒน์ เจ๊กทิม รหัสนักศึกษา 69319011557 พร้อมปล่อยเว็บสไตล์แร็ปเปอร์
+        โทนเข้ม ดุดัน มีพลัง และยังรันด้วย Node.js แบบเรียบง่ายเหมือนเดิม
       </p>
       <div class="actions">
-        <a class="button" href="/">กลับหน้าแรก</a>
-        <a class="button secondary" href="https://railway.app" target="_blank" rel="noreferrer">Railway</a>
+        <a class="button" href="/">โยว่ หน้าแรก</a>
+        <a class="button secondary" href="https://railway.app" target="_blank" rel="noreferrer">Railway Stage</a>
       </div>
     </section>
 
     <aside class="info" aria-label="ข้อมูลเซิร์ฟเวอร์">
       <div class="stat">
-        <p class="label">ชื่อโปรเจกต์</p>
-        <p class="value">My First Server</p>
+        <p class="label">Rapper Name</p>
+        <p class="value">พงษ์ชัยพัฒน์ เจ๊กทิม</p>
       </div>
       <div class="stat">
-        <p class="label">ระบบ</p>
-        <p class="value">Node.js HTTP</p>
+        <p class="label">Student ID</p>
+        <p class="value">69319011557</p>
       </div>
       <div class="stat">
-        <p class="label">สถานะ</p>
-        <p class="value">ทำงานปกติ</p>
+        <p class="label">Vibe</p>
+        <p class="value">โยว่ Rapper Mode</p>
       </div>
     </aside>
 
-    <footer>สร้างและปรับแต่งสำหรับเว็บเซิร์ฟเวอร์หน้าแรก</footer>
+    <footer>โยว่ เว็บเซิร์ฟเวอร์ธีม Rapper พร้อมขึ้นโชว์บน Railway</footer>
   </main>
 </body>
 </html>`;
