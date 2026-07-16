@@ -19,16 +19,16 @@ const html = `<!DOCTYPE html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>this is anfield</title>
+  <title>History of Liverpool FC</title>
   <style>
     :root {
       --red: #c8102e;
-      --deep-red: #7f0018;
+      --deep-red: #690014;
       --gold: #f6c453;
-      --black: #09090b;
-      --white: #fff7ed;
-      --muted: #ffd7d7;
-      --line: rgba(255, 255, 255, 0.2);
+      --cream: #fff7ed;
+      --ink: #111111;
+      --muted: #ffd9d9;
+      --line: rgba(255, 255, 255, 0.22);
     }
 
     * {
@@ -39,36 +39,35 @@ const html = `<!DOCTYPE html>
       margin: 0;
       min-height: 100vh;
       font-family: Tahoma, Arial, sans-serif;
-      color: var(--white);
+      color: var(--cream);
       background:
-        radial-gradient(circle at 18% 14%, rgba(246, 196, 83, 0.28), transparent 26%),
-        radial-gradient(circle at 82% 8%, rgba(200, 16, 46, 0.35), transparent 28%),
-        linear-gradient(135deg, #050505 0%, #240007 45%, #7f0018 100%);
-      padding: 28px 16px;
+        radial-gradient(circle at 12% 14%, rgba(246, 196, 83, 0.22), transparent 28%),
+        radial-gradient(circle at 88% 6%, rgba(200, 16, 46, 0.32), transparent 30%),
+        linear-gradient(135deg, #070707 0%, #250009 46%, #7f0018 100%);
+      padding: 24px 16px 36px;
     }
 
     main {
-      width: min(1120px, 100%);
+      width: min(1160px, 100%);
       margin: 0 auto;
       display: grid;
-      gap: 18px;
+      gap: 22px;
     }
 
     .hero {
-      min-height: 430px;
+      min-height: 560px;
       border-radius: 8px;
-      border: 1px solid var(--line);
       overflow: hidden;
       position: relative;
       display: grid;
-      place-items: center;
-      text-align: center;
-      padding: clamp(28px, 6vw, 72px);
+      align-items: end;
+      padding: clamp(28px, 6vw, 70px);
+      border: 1px solid rgba(246, 196, 83, 0.38);
       background:
-        linear-gradient(rgba(0, 0, 0, 0.36), rgba(0, 0, 0, 0.72)),
-        radial-gradient(circle at 50% 15%, rgba(255, 255, 255, 0.2), transparent 24%),
-        linear-gradient(125deg, #c8102e 0%, #7f0018 48%, #111111 100%);
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.48);
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.9)),
+        url("/meme-3.jpg") center / cover,
+        linear-gradient(135deg, var(--red), #111);
+      box-shadow: 0 34px 90px rgba(0, 0, 0, 0.52);
     }
 
     .hero::before {
@@ -76,106 +75,160 @@ const html = `<!DOCTYPE html>
       position: absolute;
       inset: 0;
       background:
-        repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.06) 0 2px, transparent 2px 34px),
-        repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.04) 0 2px, transparent 2px 34px);
-      mask-image: linear-gradient(to bottom, transparent 0%, black 16%, black 82%, transparent 100%);
+        linear-gradient(110deg, rgba(105, 0, 20, 0.84) 0%, rgba(105, 0, 20, 0.5) 43%, rgba(0, 0, 0, 0.2) 100%),
+        repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.05) 0 1px, transparent 1px 44px);
     }
 
-    .hero > * {
+    .hero-content {
       position: relative;
+      width: min(850px, 100%);
       z-index: 1;
     }
 
     .tag {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
       min-height: 38px;
       padding: 8px 16px;
       border-radius: 999px;
-      border: 1px solid rgba(246, 196, 83, 0.6);
       color: var(--gold);
-      background: rgba(0, 0, 0, 0.36);
-      font-weight: 800;
-      letter-spacing: 0;
+      background: rgba(0, 0, 0, 0.48);
+      border: 1px solid rgba(246, 196, 83, 0.62);
+      font-weight: 900;
     }
 
     h1 {
-      margin: 24px 0 8px;
-      font-size: clamp(46px, 11vw, 132px);
-      line-height: 0.9;
+      margin: 22px 0 14px;
+      font-size: clamp(42px, 8vw, 102px);
+      line-height: 0.95;
       letter-spacing: 0;
       text-transform: uppercase;
-      text-shadow: 0 7px 0 #111, 0 14px 32px rgba(0, 0, 0, 0.56);
+      text-shadow: 0 7px 0 rgba(0, 0, 0, 0.5), 0 18px 36px rgba(0, 0, 0, 0.52);
     }
 
-    .caption {
+    .lead {
       margin: 0;
+      max-width: 760px;
       color: var(--muted);
-      font-size: clamp(20px, 3.2vw, 38px);
-      font-weight: 900;
-      text-shadow: 0 3px 0 rgba(0, 0, 0, 0.72);
+      font-size: clamp(18px, 2.3vw, 25px);
+      font-weight: 700;
+      line-height: 1.7;
     }
 
     .student {
       width: min(760px, 100%);
-      margin: 16px auto 0;
-      padding: 12px 16px;
+      margin: 22px 0 0;
+      padding: 13px 16px;
       border-radius: 8px;
-      color: var(--white);
-      background: rgba(0, 0, 0, 0.42);
-      border: 1px solid rgba(246, 196, 83, 0.45);
-      font-size: clamp(17px, 2.5vw, 27px);
+      color: var(--cream);
+      background: rgba(0, 0, 0, 0.56);
+      border: 1px solid rgba(246, 196, 83, 0.5);
+      font-size: clamp(16px, 2vw, 22px);
       font-weight: 900;
       line-height: 1.45;
     }
 
-    .meme-text {
-      width: min(860px, 100%);
-      margin: 22px auto 0;
-      padding: 16px 18px;
-      border-radius: 8px;
-      color: #160000;
-      background: var(--gold);
-      border: 3px solid #fff4bd;
-      font-size: clamp(24px, 5vw, 56px);
-      font-weight: 900;
-      line-height: 1.12;
-      text-shadow: 0 2px 0 rgba(255, 255, 255, 0.42);
-      box-shadow: 0 18px 38px rgba(0, 0, 0, 0.34);
-    }
-
-    .scoreboard {
+    .stats {
       display: grid;
-      grid-template-columns: 1fr auto 1fr;
+      grid-template-columns: repeat(4, 1fr);
       gap: 14px;
-      align-items: center;
-      margin-top: 22px;
     }
 
-    .club {
-      min-height: 86px;
+    .stat,
+    .timeline,
+    .story,
+    .gallery figure {
       border-radius: 8px;
       border: 1px solid var(--line);
-      display: grid;
-      place-items: center;
-      padding: 12px;
       background: rgba(255, 255, 255, 0.08);
-      font-size: clamp(17px, 2.4vw, 27px);
-      font-weight: 900;
+      box-shadow: 0 22px 48px rgba(0, 0, 0, 0.28);
+      backdrop-filter: blur(12px);
     }
 
-    .score {
-      min-width: clamp(160px, 27vw, 310px);
+    .stat {
+      min-height: 116px;
+      padding: 18px;
+      display: grid;
+      align-content: center;
+      gap: 6px;
+    }
+
+    .stat strong {
+      color: var(--gold);
+      font-size: clamp(28px, 4vw, 46px);
+      line-height: 1;
+    }
+
+    .stat span {
+      color: rgba(255, 247, 237, 0.86);
+      font-weight: 800;
+      line-height: 1.35;
+    }
+
+    .story {
+      padding: clamp(24px, 4vw, 42px);
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .story img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
       border-radius: 8px;
-      color: #111;
-      background: #fff;
-      border: 5px solid var(--gold);
-      padding: 10px 20px;
-      font-size: clamp(48px, 10vw, 118px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: #220009;
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      color: var(--gold);
+      font-size: clamp(28px, 4vw, 48px);
+      line-height: 1.12;
+      letter-spacing: 0;
+    }
+
+    .story p,
+    .timeline p {
+      margin: 0;
+      color: rgba(255, 247, 237, 0.84);
+      font-size: 17px;
+      line-height: 1.75;
+    }
+
+    .timeline {
+      padding: clamp(24px, 4vw, 42px);
+    }
+
+    .timeline-grid {
+      margin-top: 22px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .event {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 18px;
+      padding: 18px;
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.26);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .year {
+      color: var(--gold);
+      font-size: 28px;
       font-weight: 900;
-      line-height: 0.9;
-      box-shadow: inset 0 -10px 0 rgba(0, 0, 0, 0.12);
+      line-height: 1;
+    }
+
+    .event h3 {
+      margin: 0 0 6px;
+      font-size: 21px;
+      line-height: 1.25;
     }
 
     .gallery {
@@ -184,63 +237,27 @@ const html = `<!DOCTYPE html>
       gap: 18px;
     }
 
-    .poster {
+    .gallery figure {
       min-height: 390px;
-      border-radius: 8px;
-      border: 1px solid var(--line);
       overflow: hidden;
       position: relative;
       margin: 0;
-      background: linear-gradient(160deg, #111 0%, #7f0018 55%, #c8102e 100%);
-      box-shadow: 0 24px 54px rgba(0, 0, 0, 0.34);
     }
 
-    .poster::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(circle at 50% 24%, rgba(255, 255, 255, 0.36), transparent 16%),
-        linear-gradient(to top, rgba(0, 0, 0, 0.78), transparent 58%);
-      z-index: 1;
-      pointer-events: none;
-    }
-
-    .poster img {
-      position: absolute;
-      inset: 0;
+    .gallery img {
       width: 100%;
       height: 100%;
+      min-height: 390px;
       object-fit: cover;
+      display: block;
+      background: linear-gradient(160deg, #111 0%, #7f0018 55%, #c8102e 100%);
     }
 
-    .poster img[hidden] {
-      display: none;
-    }
-
-    .poster .art {
+    .gallery figcaption {
       position: absolute;
-      inset: 24px 18px 92px;
-      border-radius: 8px;
-      display: grid;
-      place-items: center;
-      text-align: center;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      background:
-        linear-gradient(135deg, rgba(255, 255, 255, 0.18), transparent),
-        repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0 10px, transparent 10px 22px);
-      font-size: clamp(52px, 8vw, 88px);
-      font-weight: 900;
-      text-shadow: 0 5px 0 rgba(0, 0, 0, 0.64);
-    }
-
-    .poster figcaption {
-      position: absolute;
-      left: 18px;
-      right: 18px;
-      bottom: 18px;
-      z-index: 2;
-      margin: 0;
+      left: 16px;
+      right: 16px;
+      bottom: 16px;
       padding: 14px;
       border-radius: 8px;
       color: #160000;
@@ -250,33 +267,26 @@ const html = `<!DOCTYPE html>
       line-height: 1.35;
     }
 
-    .poster.king {
-      background: linear-gradient(160deg, #451a03 0%, #c8102e 48%, #f6c453 100%);
-    }
-
-    .poster.trophy {
-      background: linear-gradient(160deg, #111 0%, #4b5563 48%, #c8102e 100%);
-    }
-
     .footer {
       text-align: center;
-      color: rgba(255, 255, 255, 0.84);
+      color: rgba(255, 247, 237, 0.82);
       font-size: 15px;
-      font-weight: 700;
+      font-weight: 800;
     }
 
     @media (max-width: 860px) {
-      .gallery,
-      .scoreboard {
+      .stats,
+      .story,
+      .gallery {
         grid-template-columns: 1fr;
       }
 
-      .score {
-        width: 100%;
+      .event {
+        grid-template-columns: 1fr;
       }
 
-      .poster {
-        min-height: 330px;
+      .hero {
+        min-height: 520px;
       }
     }
   </style>
@@ -284,39 +294,106 @@ const html = `<!DOCTYPE html>
 <body>
   <main>
     <section class="hero">
-      <div>
-        <div class="tag">This is anfield</div>
-        <h1>7-0</h1>
-        <p class="caption"> Liverpool</p>
+      <div class="hero-content">
+        <div class="tag">This Is Anfield</div>
+        <h1>History of Liverpool FC</h1>
+        <p class="lead">
+          จากสโมสรที่ถือกำเนิดในเมืองท่า สู่หนึ่งในทีมฟุตบอลที่มีเรื่องราวเข้มข้นที่สุดในโลก
+          ลิเวอร์พูลคือประวัติศาสตร์ของศรัทธา เสียงเชียร์ และค่ำคืนยุโรปที่ไม่มีวันลืม
+        </p>
         <p class="student">นายพงษ์ชัยพัฒน์ เจ๊กทิม<br>รหัสนักศึกษา 69319011557</p>
-        <div class="meme-text">This is anfield</div>
-        <div class="scoreboard" aria-label="สกอร์ลิเวอร์พูลพบแมนยู">
-          <div class="club">Liverpool</div>
-          <div class="score">7 - 0</div>
-          <div class="club">Manchester United</div>
-        </div>
       </div>
     </section>
 
-    <section class="gallery" aria-label="รูปมีมลิเวอร์พูล">
-      <figure class="poster">
-        <img src="/meme-1.jpg" alt="ลิเวอร์พูลชนะ 7-0" onerror="this.hidden = true">
-        <div class="art">7-0</div>
-        <figcaption>คืนที่แอนฟิลด์เสียงดังสุด ๆ</figcaption>
+    <section class="stats" aria-label="ข้อมูลสำคัญของลิเวอร์พูล">
+      <div class="stat">
+        <strong>1892</strong>
+        <span>ปีที่ Liverpool Football Club ก่อตั้งขึ้น</span>
+      </div>
+      <div class="stat">
+        <strong>Anfield</strong>
+        <span>สนามเหย้าระดับตำนานของสโมสร</span>
+      </div>
+      <div class="stat">
+        <strong>YNWA</strong>
+        <span>You Will Never Walk Alone เพลงแห่งศรัทธา</span>
+      </div>
+      <div class="stat">
+        <strong>Red</strong>
+        <span>สีแดงที่กลายเป็นสัญลักษณ์ของความยิ่งใหญ่</span>
+      </div>
+    </section>
+
+    <section class="story">
+      <img src="/meme-2.jpg" alt="ภาพประกอบประวัติศาสตร์ลิเวอร์พูล" onerror="this.style.display='none'">
+      <div>
+        <h2>จุดเริ่มต้นของหงส์แดง</h2>
+        <p>
+          ลิเวอร์พูลก่อตั้งขึ้นในปี 1892 หลังจากการเปลี่ยนแปลงครั้งใหญ่ที่สนามแอนฟิลด์
+          จากจุดเริ่มต้นเล็ก ๆ สโมสรค่อย ๆ สร้างตัวตนผ่านฟุตบอลที่หนักแน่น แฟนบอลที่ภักดี
+          และบรรยากาศในสนามที่ทำให้คู่แข่งรู้ทันทีว่า ที่นี่ไม่เหมือนที่ไหน
+        </p>
+      </div>
+    </section>
+
+    <section class="timeline">
+      <h2>เส้นทางประวัติศาสตร์</h2>
+      <p>ช่วงเวลาสำคัญที่หล่อหลอมให้ลิเวอร์พูลกลายเป็นสโมสรระดับตำนาน</p>
+      <div class="timeline-grid">
+        <article class="event">
+          <div class="year">1892</div>
+          <div>
+            <h3>กำเนิดสโมสร</h3>
+            <p>Liverpool FC ถือกำเนิดขึ้นและเริ่มต้นเส้นทางที่ผูกพันกับสนามแอนฟิลด์อย่างแน่นแฟ้น</p>
+          </div>
+        </article>
+        <article class="event">
+          <div class="year">1960s</div>
+          <div>
+            <h3>ยุค Bill Shankly</h3>
+            <p>ชางคลีย์สร้างรากฐานของทีม เปลี่ยนสโมสรให้มีจิตวิญญาณนักสู้ และทำให้แฟนบอลเชื่อมั่นในคำว่า Liverpool Way</p>
+          </div>
+        </article>
+        <article class="event">
+          <div class="year">1970s-80s</div>
+          <div>
+            <h3>ยุคทองของยุโรป</h3>
+            <p>ลิเวอร์พูลกลายเป็นพลังสำคัญของฟุตบอลอังกฤษและฟุตบอลยุโรป ด้วยทีมที่มีวินัย แข็งแกร่ง และเล่นเพื่อกันและกัน</p>
+          </div>
+        </article>
+        <article class="event">
+          <div class="year">2005</div>
+          <div>
+            <h3>ปาฏิหาริย์อิสตันบูล</h3>
+            <p>หนึ่งในค่ำคืนที่ยิ่งใหญ่ที่สุดของฟุตบอลยุโรป ลิเวอร์พูลกลับมาจากสถานการณ์แทบเป็นไปไม่ได้จนกลายเป็นตำนาน</p>
+          </div>
+        </article>
+        <article class="event">
+          <div class="year">2019-20</div>
+          <div>
+            <h3>การกลับสู่จุดสูงสุด</h3>
+            <p>ยุคใหม่ของทีมเต็มไปด้วยพลัง การเพรสซิ่ง และความเชื่อมั่น จนพาลิเวอร์พูลกลับมายืนแถวหน้าของโลกฟุตบอลอีกครั้ง</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="gallery" aria-label="ภาพประกอบลิเวอร์พูล">
+      <figure>
+        <img src="/meme-1.jpg" alt="ค่ำคืนที่แอนฟิลด์" onerror="this.hidden = true">
+        <figcaption>ค่ำคืนแห่งแอนฟิลด์</figcaption>
       </figure>
-      <figure class="poster king">
-        <img src="/meme-2.jpg" alt="มีมราชาลิเวอร์พูล" onerror="this.hidden = true">
-        <div class="art">KING</div>
-        <figcaption>ราชาแดงยืนหนึ่ง โย่ว!</figcaption>
+      <figure>
+        <img src="/meme-2.jpg" alt="ตำนานของลิเวอร์พูล" onerror="this.hidden = true">
+        <figcaption>ศรัทธาของเหล่าเดอะค็อป</figcaption>
       </figure>
-      <figure class="poster trophy">
-        <img src="/meme-3.jpg" alt="ตำนานลิเวอร์พูล" onerror="this.hidden = true">
-        <div class="art">LFC</div>
-        <figcaption>สีแดงนี้มีตำนานและสกอร์จำไม่ลืม</figcaption>
+      <figure>
+        <img src="/meme-3.jpg" alt="ถ้วยรางวัลของลิเวอร์พูล" onerror="this.hidden = true">
+        <figcaption>ประวัติศาสตร์ที่ถูกยกขึ้นเหนือศีรษะ</figcaption>
       </figure>
     </section>
 
-    <p class="footer">หน้าเว็บมีมของนายพงษ์ชัยพัฒน์ เจ๊กทิม รหัสนักศึกษา 69319011557</p>
+    <p class="footer">จัดทำโดย นายพงษ์ชัยพัฒน์ เจ๊กทิม รหัสนักศึกษา 69319011557</p>
   </main>
 </body>
 </html>`;
