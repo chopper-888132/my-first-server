@@ -1,13 +1,24 @@
+const fs = require('fs');
 const http = require('http');
+const path = require('path');
 
 const port = process.env.PORT || 3000;
+const assetDir = path.join(__dirname, 'assets');
+
+const contentTypes = {
+  '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg',
+  '.png': 'image/png',
+  '.webp': 'image/webp',
+  '.gif': 'image/gif',
+};
 
 const html = `<!DOCTYPE html>
 <html lang="th">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Liverpool 7-0 Meme</title>
+  <title>this is anfield</title>
   <style>
     :root {
       --red: #c8102e;
@@ -43,7 +54,7 @@ const html = `<!DOCTYPE html>
     }
 
     .hero {
-      min-height: 420px;
+      min-height: 430px;
       border-radius: 8px;
       border: 1px solid var(--line);
       overflow: hidden;
@@ -105,9 +116,22 @@ const html = `<!DOCTYPE html>
       text-shadow: 0 3px 0 rgba(0, 0, 0, 0.72);
     }
 
+    .student {
+      width: min(760px, 100%);
+      margin: 16px auto 0;
+      padding: 12px 16px;
+      border-radius: 8px;
+      color: var(--white);
+      background: rgba(0, 0, 0, 0.42);
+      border: 1px solid rgba(246, 196, 83, 0.45);
+      font-size: clamp(17px, 2.5vw, 27px);
+      font-weight: 900;
+      line-height: 1.45;
+    }
+
     .meme-text {
       width: min(860px, 100%);
-      margin: 26px auto 0;
+      margin: 22px auto 0;
       padding: 16px 18px;
       border-radius: 8px;
       color: #160000;
@@ -160,11 +184,12 @@ const html = `<!DOCTYPE html>
     }
 
     .poster {
-      min-height: 360px;
+      min-height: 390px;
       border-radius: 8px;
       border: 1px solid var(--line);
       overflow: hidden;
       position: relative;
+      margin: 0;
       background: linear-gradient(160deg, #111 0%, #7f0018 55%, #c8102e 100%);
       box-shadow: 0 24px 54px rgba(0, 0, 0, 0.34);
     }
@@ -175,7 +200,21 @@ const html = `<!DOCTYPE html>
       inset: 0;
       background:
         radial-gradient(circle at 50% 24%, rgba(255, 255, 255, 0.36), transparent 16%),
-        linear-gradient(to top, rgba(0, 0, 0, 0.74), transparent 58%);
+        linear-gradient(to top, rgba(0, 0, 0, 0.78), transparent 58%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .poster img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .poster img[hidden] {
+      display: none;
     }
 
     .poster .art {
@@ -199,6 +238,7 @@ const html = `<!DOCTYPE html>
       left: 18px;
       right: 18px;
       bottom: 18px;
+      z-index: 2;
       margin: 0;
       padding: 14px;
       border-radius: 8px;
@@ -219,8 +259,9 @@ const html = `<!DOCTYPE html>
 
     .footer {
       text-align: center;
-      color: rgba(255, 255, 255, 0.76);
-      font-size: 14px;
+      color: rgba(255, 255, 255, 0.84);
+      font-size: 15px;
+      font-weight: 700;
     }
 
     @media (max-width: 860px) {
@@ -234,7 +275,7 @@ const html = `<!DOCTYPE html>
       }
 
       .poster {
-        min-height: 300px;
+        min-height: 330px;
       }
     }
   </style>
@@ -243,9 +284,10 @@ const html = `<!DOCTYPE html>
   <main>
     <section class="hero">
       <div>
-        <div class="tag">Liverpool Meme Night</div>
+        <div class="tag">this is anfield</div>
         <h1>7-0</h1>
         <p class="caption">ลิเวอร์พูลล้อแมนยูแบบเต็มสกอร์</p>
+        <p class="student">นายพงษ์ชัยพัฒน์ เจ๊กทิม<br>รหัสนักศึกษา 69319011557</p>
         <div class="meme-text">หมาแดงแมนยูกาก</div>
         <div class="scoreboard" aria-label="สกอร์ลิเวอร์พูลพบแมนยู">
           <div class="club">Liverpool</div>
@@ -257,25 +299,54 @@ const html = `<!DOCTYPE html>
 
     <section class="gallery" aria-label="รูปมีมลิเวอร์พูล">
       <figure class="poster">
+        <img src="/assets/meme-1.jpg" alt="ลิเวอร์พูลชนะ 7-0" onerror="this.hidden = true">
         <div class="art">7-0</div>
         <figcaption>คืนที่แอนฟิลด์เสียงดังสุด ๆ</figcaption>
       </figure>
       <figure class="poster king">
+        <img src="/assets/meme-2.jpg" alt="มีมราชาลิเวอร์พูล" onerror="this.hidden = true">
         <div class="art">KING</div>
         <figcaption>ราชาแดงยืนหนึ่ง โย่ว!</figcaption>
       </figure>
       <figure class="poster trophy">
+        <img src="/assets/meme-3.jpg" alt="ตำนานลิเวอร์พูล" onerror="this.hidden = true">
         <div class="art">LFC</div>
         <figcaption>สีแดงนี้มีตำนานและสกอร์จำไม่ลืม</figcaption>
       </figure>
     </section>
 
-    <p class="footer">หน้าเว็บมีมของนายพงษ์ชัยพัฒน์ เจ๊กทิม รหัส 69319011557</p>
+    <p class="footer">หน้าเว็บมีมของนายพงษ์ชัยพัฒน์ เจ๊กทิม รหัสนักศึกษา 69319011557</p>
   </main>
 </body>
 </html>`;
 
 const server = http.createServer((req, res) => {
+  const requestUrl = new URL(req.url, `http://${req.headers.host}`);
+
+  if (requestUrl.pathname.startsWith('/assets/')) {
+    const fileName = path.basename(requestUrl.pathname);
+    const filePath = path.join(assetDir, fileName);
+    const ext = path.extname(fileName).toLowerCase();
+
+    if (!contentTypes[ext] || !filePath.startsWith(assetDir)) {
+      res.writeHead(404);
+      res.end('Not found');
+      return;
+    }
+
+    fs.readFile(filePath, (error, data) => {
+      if (error) {
+        res.writeHead(404);
+        res.end('Not found');
+        return;
+      }
+
+      res.writeHead(200, { 'Content-Type': contentTypes[ext] });
+      res.end(data);
+    });
+    return;
+  }
+
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
   res.end(html);
