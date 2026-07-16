@@ -289,7 +289,7 @@ const html = `<!DOCTYPE html>
         <h1>7-0</h1>
         <p class="caption"> Liverpool</p>
         <p class="student">นายพงษ์ชัยพัฒน์ เจ๊กทิม<br>รหัสนักศึกษา 69319011557</p>
-        <div class="meme-text">หมาแดงแมนยูกาก</div>
+        <div class="meme-text">This is anfield</div>
         <div class="scoreboard" aria-label="สกอร์ลิเวอร์พูลพบแมนยู">
           <div class="club">Liverpool</div>
           <div class="score">7 - 0</div>
