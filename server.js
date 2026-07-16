@@ -193,10 +193,9 @@ const html = `<!DOCTYPE html>
   <main>
     <section class="hero">
       <div class="badge"><span class="dot"></span> โยว่ Server พร้อมขึ้นเวที</div>
-      <h1>โยว่! Rapper Server<br>ของนายพงษ์ชัยพัฒน์</h1>
+      <h1>โยว่! นี้คือ Server <br>ของนายพงษ์ชัยพัฒน์</h1>
       <p class="lead">
-        นายพงษ์ชัยพัฒน์ เจ๊กทิม รหัสนักศึกษา 69319011557 พร้อมปล่อยเว็บสไตล์แร็ปเปอร์
-        โทนเข้ม ดุดัน มีพลัง และยังรันด้วย Node.js แบบเรียบง่ายเหมือนเดิม
+
       </p>
       <div class="actions">
         <a class="button" href="/">โยว่ หน้าแรก</a>
