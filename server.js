@@ -284,9 +284,9 @@ const html = `<!DOCTYPE html>
   <main>
     <section class="hero">
       <div>
-        <div class="tag">this is anfield</div>
+        <div class="tag">This is anfield</div>
         <h1>7-0</h1>
-        <p class="caption">ลิเวอร์พูลล้อแมนยูแบบเต็มสกอร์</p>
+        <p class="caption"> Liverpool</p>
         <p class="student">นายพงษ์ชัยพัฒน์ เจ๊กทิม<br>รหัสนักศึกษา 69319011557</p>
         <div class="meme-text">หมาแดงแมนยูกาก</div>
         <div class="scoreboard" aria-label="สกอร์ลิเวอร์พูลพบแมนยู">
